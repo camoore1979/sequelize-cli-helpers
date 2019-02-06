@@ -1,0 +1,43 @@
+{
+  "name": "sequelize-cli-helpers",
+  "version": "0.0.1",
+  "description": "Better Sequelize CLI tools.",
+  "main": "touchMigration.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "lint": "eslint \"src/**/*.js\" \"server.js\"",
+    "fixlint": "eslint --fix \"src/**/*.js\" \"server.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camoore1979/sequelize-cli-helpers.git"
+  },
+  "keywords": [
+    "sequelize",
+    "sequelize-cli",
+    "sequelize helpers"
+  ],
+  "author": "Chad Allen Moore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camoore1979/sequelize-cli-helpers/issues"
+  },
+  "homepage": "https://github.com/camoore1979/sequelize-cli-helpers#readme",
+  "contributors": [
+    "Chad Allen Moore <mr.chad.moore@gmail.com> (http://www.chadamoore.com/)"
+  ],
+  "engines": {
+    "node": "8.4.0"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cli": "^1.0.1",
+    "eslint-config-google": "^0.12.0",
+    "linebyline": "^1.3.0",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0"
+  }
+}
