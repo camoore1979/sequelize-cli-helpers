@@ -1,0 +1,41 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "script",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "comma-dangle": ["error", "only-multiline"],
+    "indent": ["error", 2],
+    "linebreak-style": [ "error", "unix" ],
+    "max-len": ["warn", 110, 2],
+    "no-const-assign": "error",
+    "no-var": "error",
+    "no-use-before-define": ["error",
+      {
+        "functions": false,
+        "classes": true
+      }
+    ],
+    "prefer-const": "error",
+    "quotes": ["error", "single"],
+    "require-jsdoc": "off",
+    "semi": ["error", "always"],
+    "keyword-spacing": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+    }]
+  }
+}
