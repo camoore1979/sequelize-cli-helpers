@@ -2,10 +2,13 @@
   "name": "sequelize-cli-helpers",
   "version": "0.0.1",
   "description": "Better Sequelize CLI tools.",
-  "main": "touchMigration.js",
+  "main": "index.js",
+  "bin": {
+    "test-cli": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
+    "start": "node index",
     "lint": "eslint \"src/**/*.js\" \"server.js\"",
     "fixlint": "eslint --fix \"src/**/*.js\" \"server.js\""
   },
