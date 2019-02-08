@@ -1,8 +1,7 @@
 
 const moment = require('moment');
-const fs = require('fs');
-
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 const { spawnSync } = require('child_process');
 
 
@@ -29,15 +28,15 @@ const createFileName = () => {
     .pop()
     .trim()}`;
 
-  const dir = path.join(__dirname, '../', 'migrations');
-  const re = new RegExp(branch);
+  // const dir = path.join(__dirname, '../', 'migrations');
+  // const re = new RegExp(branch);
 
-  // const dir = '/folder/';
-  // const count = 2;
-  const count = fs
-    .readdirSync(dir)
-    .map(file => file)
-    .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);
+  const dir = '/folder/';
+  const count = 2;
+  // const count = fs
+  //   .readdirSync(dir)
+  //   .map(file => file)
+  //   .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);
 
   const dts = moment().format('YYYYMMDDHHmmss');
   const script = `${dts}-0${count.toString()}-${branch}-${slug}.js`;
