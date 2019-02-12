@@ -1,9 +1,7 @@
-// const readline = require('readline');
+'use strict';
 
 const createFileName = require('../generators/fileName/createFileName');
 
-// const yargs = require('yargs');
-// yargs.option('chad');
 
 module.exports = {
   command: 'abc',
@@ -12,6 +10,7 @@ module.exports = {
     const fileName = createFileName();
     console.log(`Saved! ${fileName}`);
   }
+
   // const rl = readline.createInterface({
   //   input: process.stdin,
   //   output: process.stdout,
