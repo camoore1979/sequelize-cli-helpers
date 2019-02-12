@@ -1,9 +1,9 @@
 #!/usr/bin/env node
+'use strict';
 
-const path = require('path');
-
+// const path = require('path');
 // const myPack = requ
-const dir = path.join(__dirname);
+// const dir = path.join(__dirname);
 // console.log('__dirname: ', __dirname);
 // console.log('__filename: ', __filename);
 // console.log(`Current directory: ${process.cwd()}`);
