@@ -3,9 +3,22 @@
 const logger = require('../lib/logger');
 const fs = require('fs');
 
-const writeFile = (fileName, data) => {
+/**
+ * @function writeFile
+ * @description wraps call to fs.writeFileSync and prints error, if thrown
+ * @param {string} fileName 
+ * @param {string} data 
+ * @param {string} writeOption optional <append|force> 
+ * append will append to the given file
+ * force will overwrite the given file
+ * by default, will error if path exists
+ * @returns {boolean} true if successful
+ */
+const writeFile = (fileName, data, writeOption) => {
+  const writeFlag = (writeOption === 'append') ? 'a' : (writeOption === 'force') ? 'w' : 'wx';
   try {
-    fs.writeFileSync(fileName, data, { flag: 'wx' });
+    const content = !data && '';
+    fs.writeFileSync(fileName, content, { flag: writeFlag });
     return true;
   } catch (err) {
     if (err) {
