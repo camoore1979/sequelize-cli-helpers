@@ -7,8 +7,8 @@ const {
   defaults: { DEFAULT_DATE_FORMAT }
 } = config;
 
-const createDate = () => {
-  return moment().format(DEFAULT_DATE_FORMAT);
+const getDate = dateFormat => {
+  return moment().format(dateFormat || DEFAULT_DATE_FORMAT);
 };
 
-module.exports = createDate;
+module.exports = getDate;
