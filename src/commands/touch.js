@@ -6,12 +6,10 @@ const config = require('../config');
 const createFileName = require('../generators/createFileName');
 const logger = require('../lib/logger');
 const writeFile = require('../lib/writeFile');
-const yesNo = require('../prompts/yesNo');
+const { input, yesNo } = require('../prompts/');
 
 const {
-  sequelize: {
-    'migrations-path': migrationsPath,
-  },
+  sequelize: { 'migrations-path': migrationsPath },
   defaults: { DEFAULT_DATE_FORMAT }
 } = config;
 
@@ -27,12 +25,15 @@ const builder = yargs => {
 };
 
 const handler = async (/* argv */) => {
-  const fileName = createFileName();
-  const createFile = await yesNo(`Create file with name "${fileName}"?`);
+  const description = await input('enter a file description');
 
+  const fileName = createFileName({ description });
+
+  const createFile = await yesNo(`Create file with name "${fileName}"?`);
   // TODO: should check to see if migrationsPaths are absolute!!
   const dir = path.join(migrationsPath, fileName);
   if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
+  if (!createFile) logger.log('cancelling... no file created.');
 };
 
 module.exports = {
