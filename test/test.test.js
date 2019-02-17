@@ -1,3 +1,5 @@
+'use strict';
+
 const test = require('tape');
 
 test('setup getAddress', function (t) {
