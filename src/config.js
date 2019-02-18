@@ -13,6 +13,8 @@ module.exports = {
   },
   defaults: {
     DEFAULT_DATE_FORMAT: 'YYYYMMDDHHmmss',
-    DEFAULT_EXTENSION: 'js'
+    DEFAULT_EXTENSION: 'js',
+    DEFAULT_PADDED_NUMBER_LENGTH: 6,
+    DEFAULT_SEPARATOR: '-'
   }
 };

@@ -13,6 +13,15 @@ const {
   defaults: { DEFAULT_DATE_FORMAT }
 } = config;
 
+// const dateString = getDate();
+// TODO: this should be PASSED in...
+// const re = new RegExp(gitInfo);
+// const count = fs
+//   .readdirSync(migrationsPath)
+//   .map(file => file)
+//   .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);
+
+
 const builder = yargs => {
   return yargs.options({
     fd: {

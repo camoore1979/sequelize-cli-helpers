@@ -37,6 +37,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "enquirer": "^2.3.0",
+    "filenamify": "^2.1.0",
     "find-up": "^3.0.0",
     "moment": "^2.24.0",
     "prettier-eslint": "^8.8.2",

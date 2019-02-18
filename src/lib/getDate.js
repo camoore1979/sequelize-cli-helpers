@@ -1,14 +1,13 @@
 'use strict';
 
-const config = require('../config');
 const moment = require('moment');
 
 const {
   defaults: { DEFAULT_DATE_FORMAT }
-} = config;
+} = require('../config');
 
-const getDate = dateFormat => {
-  return moment().format(dateFormat || DEFAULT_DATE_FORMAT);
+const getDate = (date, dateFormat) => {
+  return moment(date).format(dateFormat || DEFAULT_DATE_FORMAT);
 };
 
 module.exports = getDate;
