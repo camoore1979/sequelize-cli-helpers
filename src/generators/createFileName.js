@@ -1,6 +1,5 @@
 'use strict';
 
-// const fs = require('fs');
 // const path = require('path');
 const logger = require('../lib/logger');
 
@@ -10,14 +9,10 @@ const getGitStuff = require('../lib/getGitStuff');
 const getNextNumber = require('../lib/getNextNumber');
 const getRandomString = require('../lib/getRandomString');
 
-const {
-  defaults: { DEFAULT_EXTENSION, DEFAULT_SEPARATOR }
-  // sequelize: { 'migrations-path': migrationsPath }
-} = require('../config');
-
 const acceptedFormatOptions = {
   D: 'description',
   G: 'git info',
+  N: 'padded string of numbers',
   Tz: 'date with timestamp'
 };
 
@@ -63,12 +58,15 @@ const getNamePart = (formatPart, options) => {
  * @returns {string} file name
  */
 const createFileName = options => {
+  const {
+    settings: { EXTENSION, FILE_NAME_FORMAT, SEPARATOR }
+  } = require('../config');
+
   const { extension: fileExtension, format: nameFormat, separator: separatorChar } = options || {};
 
-  const extension = fileExtension || DEFAULT_EXTENSION;
-  const format = nameFormat || 'Tz.D';
-  const separator = separatorChar || DEFAULT_SEPARATOR;
-
+  const extension = fileExtension || EXTENSION;
+  const format = nameFormat || FILE_NAME_FORMAT;
+  const separator = separatorChar || SEPARATOR;
 
   const fileName = format
     .split('.')

@@ -3,12 +3,12 @@
 const filenamify = require('filenamify');
 
 const {
-  defaults: { DEFAULT_SEPARATOR }
+  settings: { SEPARATOR }
 } = require('../config');
 
 const getSafeFileName = string => {
-  string = string.replace(/\s/g, DEFAULT_SEPARATOR);
-  return filenamify(string, {replacement: DEFAULT_SEPARATOR});
+  string = string.replace(/\s/g, SEPARATOR);
+  return filenamify(string, { replacement: SEPARATOR });
 };
 
 module.exports = getSafeFileName;

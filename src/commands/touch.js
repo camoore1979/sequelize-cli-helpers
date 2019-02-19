@@ -7,26 +7,17 @@ const createFileName = require('../generators/createFileName');
 const logger = require('../lib/logger');
 const writeFile = require('../lib/writeFile');
 const { input, yesNo } = require('../prompts/');
-
-const {
-  sequelize: { 'migrations-path': migrationsPath },
-  defaults: { DEFAULT_DATE_FORMAT }
-} = config;
-
-// const dateString = getDate();
-// TODO: this should be PASSED in...
-// const re = new RegExp(gitInfo);
-// const count = fs
-//   .readdirSync(migrationsPath)
-//   .map(file => file)
-//   .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);
-
+const getCurrentNumber = require('../lib/getCurrentNumber');
 
 const builder = yargs => {
+  const {
+    settings: { DATE_FORMAT }
+  } = config;
+  
   return yargs.options({
     fd: {
       alias: 'dateFormat',
-      default: DEFAULT_DATE_FORMAT,
+      default: DATE_FORMAT,
       describe: 'format of date',
       type: 'string'
     }
@@ -35,10 +26,15 @@ const builder = yargs => {
 
 // TODO: ability to pass in all the options...
 const handler = async (/* argv */) => {
+  const {
+    sequelize: { 'migrations-path': migrationsPath },
+  } = config;
+  
   const description = await input('enter a file description');
   const fileName = createFileName({ description });
   const createFile = await yesNo(`Create file with name "${fileName}"?`);
 
+  getCurrentNumber({ path: migrationsPath });
   // TODO: should check to see if migrationsPaths are absolute!!
   const dir = path.join(migrationsPath, fileName);
   if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
