@@ -3,17 +3,17 @@
 // const fs = require('fs');
 // const path = require('path');
 const logger = require('../lib/logger');
-const config = require('../config');
 
 const getDate = require('../lib/getDate');
+const getSafeFileName = require('../lib/getSafeFileName');
 const getGitStuff = require('../lib/getGitStuff');
 const getNextNumber = require('../lib/getNextNumber');
 const getRandomString = require('../lib/getRandomString');
 
 const {
-  defaults: { DEFAULT_EXTENSION }
+  defaults: { DEFAULT_EXTENSION, DEFAULT_SEPARATOR }
   // sequelize: { 'migrations-path': migrationsPath }
-} = config;
+} = require('../config');
 
 const acceptedFormatOptions = {
   D: 'description',
@@ -39,7 +39,7 @@ const getNamePart = (formatPart, options) => {
   case 'D':
     // TODO: add automatic safely interpreting the description
     // search for some pkg to create fs safe file names
-    return description;
+    return getSafeFileName(description);
   case 'G':
     return getGitStuff();
   case 'N':
@@ -67,15 +67,8 @@ const createFileName = options => {
 
   const extension = fileExtension || DEFAULT_EXTENSION;
   const format = nameFormat || 'Tz.D';
-  const separator = separatorChar || '-';
+  const separator = separatorChar || DEFAULT_SEPARATOR;
 
-  // const dateString = getDate();
-  // TODO: this should be PASSED in...
-  // const re = new RegExp(gitInfo);
-  // const count = fs
-  //   .readdirSync(migrationsPath)
-  //   .map(file => file)
-  //   .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);
 
   const fileName = format
     .split('.')

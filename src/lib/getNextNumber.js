@@ -1,14 +1,19 @@
 'use strict';
 
-// const config = require('../config');
+const config = require('../config');
 
-// const {
-//   defaults: {  }
-// } = config;
+const {
+  defaults: { DEFAULT_PADDED_NUMBER_LENGTH }
+} = config;
 
-/* numberFormat */
+/**
+ * @function getNextNumber
+ * @description
+ * @param {number} number 
+ * @returns {string} stringified number left padded with zeroes
+ */
 const getNextNumber = number => {
-  return String(number).padStart(6, '0');
+  return String(number + 1).padStart(DEFAULT_PADDED_NUMBER_LENGTH, '0');
 };
 
 module.exports = getNextNumber;
