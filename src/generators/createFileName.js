@@ -2,7 +2,7 @@
 
 // const fs = require('fs');
 // const path = require('path');
-
+const logger = require('../lib/logger');
 const config = require('../config');
 
 const getDate = require('../lib/getDate');
@@ -15,23 +15,27 @@ const {
   // sequelize: { 'migrations-path': migrationsPath }
 } = config;
 
-// const slug =
-// process.argv.slice(2).length > 0
-//   ? process.argv.slice(2).pop()
-//   : randomString();
-
-// const acceptedOptions = {
-//   Tz: 'date with timestamp',
-//   G: 'git info'
-// };
+const acceptedFormatOptions = {
+  D: 'description',
+  G: 'git info',
+  Tz: 'date with timestamp'
+};
 
 // TODO: use underscores or dashes or periods for name separators
 // TODO: parse description per some regex, remove spaces? remove unsafe chars? enforce lower case?
 //: 'Tz.'
 
-const getNamePart = (type, options) => {
+const getNamePart = (formatPart, options) => {
   const { date, dateFormat, description, number, numberFormat } = options || {};
-  switch (type) {
+
+  const isOptionAccepted = Object.keys(acceptedFormatOptions).some(opt => opt === formatPart);
+
+  if (!isOptionAccepted) {
+    logger.error(`ERROR: ${formatPart} is not an accepted formatting option.`);
+    return '';
+  }
+
+  switch (formatPart) {
   case 'D':
     // TODO: add automatic safely interpreting the description
     // search for some pkg to create fs safe file names
