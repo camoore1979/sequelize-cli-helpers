@@ -2,16 +2,13 @@
 
 const fs = require('fs');
 
-const config = require('../config');
-
-const getCurrentNumber = ({ path }) => {
+const getCurrentNumber = options => {
   const {
-    settings: {
-      // FILE_NAME_FORMAT,
-      PADDED_NUMBER_LENGTH,
-      SEPARATOR
-    }
-  } = config;
+    // fileNameFormat,
+    numberPaddedLength,
+    separator,
+    path
+  } = options;
 
   const isNumbers = /^[0-9.]+$/;
 
@@ -19,9 +16,9 @@ const getCurrentNumber = ({ path }) => {
   // TODO: this should be PASSED in...
   // const re = new RegExp(gitInfo);
   const files = fs.readdirSync(path).filter(file => {
-    const test = file.split(SEPARATOR).shift();
+    const test = file.split(separator).shift();
 
-    return test.length === PADDED_NUMBER_LENGTH && test.match(isNumbers);
+    return test.length === numberPaddedLength && test.match(isNumbers);
   });
 
   //     // .reduce((result, file) => (re.test(file) ? result + 1 : result), 1);

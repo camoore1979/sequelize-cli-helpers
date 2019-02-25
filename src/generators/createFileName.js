@@ -2,6 +2,7 @@
 
 // const path = require('path');
 const logger = require('../lib/logger');
+// const config = require('../config');
 
 const getDate = require('../lib/getDate');
 const getSafeFileName = require('../lib/getSafeFileName');
@@ -21,7 +22,7 @@ const acceptedFormatOptions = {
 //: 'Tz.'
 
 const getNamePart = (formatPart, options) => {
-  const { date, dateFormat, description, number, numberFormat } = options || {};
+  const { date, dateFormat, description, number, numberPaddedLength, separator } = options || {};
 
   const isOptionAccepted = Object.keys(acceptedFormatOptions).some(opt => opt === formatPart);
 
@@ -34,16 +35,21 @@ const getNamePart = (formatPart, options) => {
   case 'D':
     // TODO: add automatic safely interpreting the description
     // search for some pkg to create fs safe file names
-    return getSafeFileName(description);
+    return getSafeFileName(description, separator);
   case 'G':
     return getGitStuff();
   case 'N':
-    return getNextNumber(number, numberFormat);
+    return getNextNumber(number, numberPaddedLength);
   case 'R':
     return getRandomString();
   case 'Tz':
     return date || getDate(dateFormat);
   }
+};
+
+const validNameFormat = format => {
+  const firstPart = format.split('.').shift();
+  return ['N', 'Tz'].find(p => p === firstPart);
 };
 
 /**
@@ -58,22 +64,19 @@ const getNamePart = (formatPart, options) => {
  * @returns {string} file name
  */
 const createFileName = options => {
-  const {
-    settings: { EXTENSION, FILE_NAME_FORMAT, SEPARATOR }
-  } = require('../config');
+  const { fileExtension, fileNameFormat, separator } = options;
 
-  const { extension: fileExtension, format: nameFormat, separator: separatorChar } = options || {};
+  if (!validNameFormat(fileNameFormat)) {
+    logger.error('File name must begin with a date or number series!');
+    return;
+  }
 
-  const extension = fileExtension || EXTENSION;
-  const format = nameFormat || FILE_NAME_FORMAT;
-  const separator = separatorChar || SEPARATOR;
-
-  const fileName = format
+  const fileName = fileNameFormat
     .split('.')
     .map(type => getNamePart(type, options))
     .reduce((acc, part) => `${acc}${separator}${part}`);
 
-  return `${fileName}.${extension}`;
+  return `${fileName}.${fileExtension}`;
 };
 
 module.exports = createFileName;

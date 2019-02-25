@@ -28,10 +28,11 @@ const builder = yargs => {
 const handler = async (/* argv */) => {
   const {
     sequelize: { 'migrations-path': migrationsPath },
+    settings
   } = config;
   
   const description = await input('enter a file description');
-  const fileName = createFileName({ description });
+  const fileName = createFileName({ description, ...settings });
   const createFile = await yesNo(`Create file with name "${fileName}"?`);
 
   getCurrentNumber({ path: migrationsPath });

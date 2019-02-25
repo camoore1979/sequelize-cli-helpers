@@ -2,13 +2,9 @@
 
 const filenamify = require('filenamify');
 
-const {
-  settings: { SEPARATOR }
-} = require('../config');
-
-const getSafeFileName = string => {
-  string = string.replace(/\s/g, SEPARATOR);
-  return filenamify(string, { replacement: SEPARATOR });
+const getSafeFileName = (string,  separator) => {
+  string = string.replace(/\s/g, separator);
+  return filenamify(string, { replacement: separator });
 };
 
 module.exports = getSafeFileName;

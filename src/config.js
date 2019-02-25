@@ -5,11 +5,11 @@ const rcPaths = findUp.sync(['.sequelizerc']);
 const sequelizeSettings = rcPaths && require(rcPaths);
 
 const DEFAULT_SETTINGS = {
-  DATE_FORMAT: 'YYYYMMDDHHmmss',
-  EXTENSION: 'js',
-  FILE_NAME_FORMAT: 'N.D',
-  PADDED_NUMBER_LENGTH: 4,
-  SEPARATOR: '-'
+  dateFormat: 'YYYYMMDDHHmmss',
+  fileExtension: 'js',
+  fileNameFormat: 'N.D',
+  numberPaddedLength: 4,
+  separator: '-'
 };
 
 // TODO: add unit tests for config
