@@ -5,10 +5,10 @@ const logger = require('../lib/logger');
 // const config = require('../config');
 
 const getDate = require('../lib/getDate');
-const getSafeFileName = require('../lib/getSafeFileName');
 const getGitStuff = require('../lib/getGitStuff');
 const getNextNumber = require('../lib/getNextNumber');
 const getRandomString = require('../lib/getRandomString');
+const getSafeFileName = require('../lib/getSafeFileName');
 
 const acceptedFormatOptions = {
   D: 'description',
@@ -43,7 +43,8 @@ const getNamePart = (formatPart, options) => {
   case 'R':
     return getRandomString();
   case 'Tz':
-    return date || getDate(dateFormat);
+    console.log('Tz - dateFormat: ', dateFormat)
+    return date || getDate(undefined, dateFormat);
   }
 };
 

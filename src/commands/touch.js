@@ -13,7 +13,7 @@ const builder = yargs => {
   const {
     settings: { DATE_FORMAT }
   } = config;
-  
+
   return yargs.options({
     fd: {
       alias: 'dateFormat',
@@ -30,12 +30,16 @@ const handler = async (/* argv */) => {
     sequelize: { 'migrations-path': migrationsPath },
     settings
   } = config;
-  
+
+  const currentNumber = getCurrentNumber({ path: migrationsPath, ...settings });
   const description = await input('enter a file description');
-  const fileName = createFileName({ description, ...settings });
+  const fileName = createFileName({
+    description,
+    number: currentNumber,
+    ...settings
+  });
   const createFile = await yesNo(`Create file with name "${fileName}"?`);
 
-  getCurrentNumber({ path: migrationsPath });
   // TODO: should check to see if migrationsPaths are absolute!!
   const dir = path.join(migrationsPath, fileName);
   if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
