@@ -6,7 +6,7 @@ const logger = require('../lib/logger');
 
 const getDate = require('../lib/getDate');
 const getGitStuff = require('../lib/getGitStuff');
-const getNextNumber = require('../lib/getNextNumber');
+const padNumber = require('../lib/padNumber');
 const getRandomString = require('../lib/getRandomString');
 const getSafeFileName = require('../lib/getSafeFileName');
 
@@ -39,11 +39,10 @@ const getNamePart = (formatPart, options) => {
   case 'G':
     return getGitStuff();
   case 'N':
-    return getNextNumber(number, numberPaddedLength);
+    return padNumber(number, numberPaddedLength);
   case 'R':
     return getRandomString();
   case 'Tz':
-    console.log('Tz - dateFormat: ', dateFormat)
     return date || getDate(undefined, dateFormat);
   }
 };
