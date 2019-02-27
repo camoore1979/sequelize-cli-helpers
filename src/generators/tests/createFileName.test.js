@@ -6,7 +6,7 @@ const createFileName = require('../createFileName');
 
 before('createFileName()', t => t.end());
 
-test('creates a filename defaulting to name of format YYYYMMDDHHMMSS-description.js', t => {
+test.skip('creates a filename defaulting to name of format YYYYMMDDHHMMSS-description.js', t => {
   const options = {
     description: 'myFile01'
   };
@@ -18,7 +18,7 @@ test('creates a filename defaulting to name of format YYYYMMDDHHMMSS-description
   t.end();
 });
 
-test('asdf', t => {
+test.skip('asdf', t => {
   const options = {
     description: 'myFile01'
   };
