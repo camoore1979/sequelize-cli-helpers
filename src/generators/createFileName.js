@@ -64,7 +64,11 @@ const validNameFormat = format => {
  * @returns {string} file name
  */
 const createFileName = options => {
-  const { fileExtension, fileNameFormat, separator } = options;
+  const { 
+    fileExtension,
+    fileNameFormat,
+    separator 
+  } = options;
 
   if (!validNameFormat(fileNameFormat)) {
     logger.error('File name must begin with a date or number series!');
