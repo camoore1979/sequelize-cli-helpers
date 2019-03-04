@@ -37,7 +37,11 @@ const getNamePart = (formatPart, options) => {
     // search for some pkg to create fs safe file names
     return getSafeFileName(description, separator);
   case 'G':
-    return getGitStuff();
+  /* eslint-disable */
+    const myVar = getGitStuff();
+    console.log('calling getGitStuff(): ', myVar);
+
+    return myVar;
   case 'N':
     return padNumber(number, numberPaddedLength);
   case 'R':
