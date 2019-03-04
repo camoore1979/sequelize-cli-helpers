@@ -17,6 +17,10 @@ module.exports = (() => {
   return {
     context: process.cwd(),
     sequelize: {
+      config: '',
+      'models-path': '',
+      'migrations-path': '',
+      'seeders-path': '',
       ...sequelizeSettings
     },
     settings: {

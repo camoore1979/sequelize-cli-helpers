@@ -2,19 +2,19 @@
 
 const path = require('path');
 
-const config = require('../config');
 const createFileName = require('../generators/createFileName');
 const getCurrentNumber = require('../lib/getCurrentNumber');
 const logger = require('../lib/logger');
 const { input, yesNo } = require('../prompts/');
 const writeFile = require('../lib/writeFile');
 
-module.exports = async (/* argv */) => {
+const getFileNameParts = async options => {
   const {
     sequelize: { 'migrations-path': migrationsPath },
     settings
-  } = config;
+  } = options;
   const { fileNameFormat } = settings;
+
   const formatParts = fileNameFormat.split('.');
   let currentNumber;
   let description;
@@ -32,12 +32,26 @@ module.exports = async (/* argv */) => {
     }
   }
 
+  return { currentNumber, description};
+};
+
+/**
+ * @function touchFile
+ * @descriptionn
+ * @param {object} options
+ */
+module.exports = async options => {
+  const {
+    sequelize: { 'migrations-path': migrationsPath },
+    settings
+  } = options;
+
+  const { description, currentNumber } = await getFileNameParts(options);
   const fileName = createFileName({
     ...settings,
     description,
     number: currentNumber
   });
-
   const createFile = await yesNo(`Create file with name "${fileName}"?`);
   const dir = path.join(migrationsPath, fileName);
   if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
