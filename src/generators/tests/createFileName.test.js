@@ -25,10 +25,8 @@ test('creates a filename defaulting to name of format YYYYMMDDHHMMSS-description
   const datePart = fileNameParts[0];
   let descriptionPart = fileNameParts[1];
   descriptionPart = descriptionPart.slice(0, (descriptionPart.lastIndexOf('.')));
-
   t.equal(datePart.length, 14, 'is of length of expected format, YYYYMMDDHHMMSS');
   t.equal(moment().isSame(datePart.slice(0,8), 'day'), true, 'date is today');
-
   t.equal(descriptionPart, options.description, 'includes \'description\'');
   t.end();
 });

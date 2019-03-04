@@ -33,15 +33,9 @@ const getNamePart = (formatPart, options) => {
 
   switch (formatPart) {
   case 'D':
-    // TODO: add automatic safely interpreting the description
-    // search for some pkg to create fs safe file names
     return getSafeFileName(description, separator);
   case 'G':
-  /* eslint-disable */
-    const myVar = getGitStuff();
-    console.log('calling getGitStuff(): ', myVar);
-
-    return myVar;
+    return getGitStuff();
   case 'N':
     return padNumber(number, numberPaddedLength);
   case 'R':
