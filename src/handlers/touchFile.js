@@ -4,28 +4,12 @@ const path = require('path');
 
 const config = require('../config');
 const createFileName = require('../generators/createFileName');
-const logger = require('../lib/logger');
-const writeFile = require('../lib/writeFile');
-const { input, yesNo } = require('../prompts/');
 const getCurrentNumber = require('../lib/getCurrentNumber');
+const logger = require('../lib/logger');
+const { input, yesNo } = require('../prompts/');
+const writeFile = require('../lib/writeFile');
 
-const builder = yargs => {
-  const {
-    settings: { DATE_FORMAT }
-  } = config;
-
-  return yargs.options({
-    fd: {
-      alias: 'dateFormat',
-      default: DATE_FORMAT,
-      describe: 'format of date',
-      type: 'string'
-    }
-  });
-};
-
-// TODO: ability to pass in all the options...
-const handler = async (/* argv */) => {
+module.exports = async (/* argv */) => {
   const {
     sequelize: { 'migrations-path': migrationsPath },
     settings
@@ -58,11 +42,4 @@ const handler = async (/* argv */) => {
   const dir = path.join(migrationsPath, fileName);
   if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
   if (!createFile) logger.log('cancelling... no file created.');
-};
-
-module.exports = {
-  command: 'touch',
-  desc: 'generates a migration file name and touches the empty file',
-  builder,
-  handler
 };
