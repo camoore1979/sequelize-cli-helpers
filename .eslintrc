@@ -15,15 +15,35 @@
   "rules": {
     "arrow-parens": ["error", "as-needed"],
     "comma-dangle": ["error", "only-multiline"],
+    "function-paren-newline": ["error", { "minItems": 4 }],
     "indent": ["error", 2],
-    "linebreak-style": [ "error", "unix" ],
+    "linebreak-style": ["error", "unix"],
+    "key-spacing": ["error", { "afterColon": true }],
     "max-len": ["warn", 110, 2],
+    "no-console": "warn",
     "no-const-assign": "error",
     "no-var": "error",
-    "no-use-before-define": ["error",
+    "no-use-before-define": [
+      "error",
       {
         "functions": false,
         "classes": true
+      }
+    ],
+    "object-curly-newline": ["error", { "minProperties": 2 }],
+    "object-curly-spacing": ["error", "always"],
+    "object-property-newline": [
+      "error",
+      { "allowAllPropertiesOnSameLine": false }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": false,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": false
       }
     ],
     "prefer-const": "error",
@@ -32,11 +52,14 @@
     "semi": ["error", "always"],
     "keyword-spacing": "error",
     "space-before-blocks": "error",
-    "space-before-function-paren": ["error", {
+    "space-before-function-paren": [
+      "error",
+      {
         "anonymous": "always",
         "named": "never",
         "asyncArrow": "always"
-    }],
+      }
+    ],
     "strict": "error"
   }
 }
