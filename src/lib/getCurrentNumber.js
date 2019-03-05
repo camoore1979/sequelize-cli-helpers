@@ -14,8 +14,6 @@ const getFilterFunc = ({
   const matchIndex = formatParts.indexOf(matchNumberOn);
   let testFunc;
 
-  console.log('matchValue: ', matchValue);
-  console.log('matchIndex: ', matchIndex);
   if (matchNumberOn === 'N') {
     const isNumbers = /^[0-9.]+$/;
     testFunc = test => test.length === numberPaddedLength && test.match(isNumbers);
@@ -43,10 +41,6 @@ const getCurrentNumber = options => {
   const fileNameParts = fileNameFormat.split('.');
   const numberIndex = fileNameParts.indexOf('N');
 
-  // which position is number in??
-
-  // test.length === numberPaddedLength && test.match(isNumbers)
-  // Defaults to match on any file with a number in the name format
   const filterFunc = getFilterFunc({
     fileNameFormat,
     matchNumberOn,
@@ -57,10 +51,7 @@ const getCurrentNumber = options => {
 
   const files = fs.readdirSync(path);
   const lastFile = filterFunc && files.filter(filterFunc).pop();
-  // eslint-disable-next-line
-  console.log('FILE: ', lastFile);
   const lastFileNameParts = lastFile && lastFile.split(separator);
-  console.dir(lastFileNameParts);
   const lastFileNumber =
     lastFile && lastFileNameParts.length >= numberIndex && lastFileNameParts[numberIndex];
 

@@ -9,9 +9,9 @@ const sequelizeSettings = rcPaths && require(rcPaths);
 const DEFAULT_SETTINGS = {
   dateFormat: 'YYYYMMDDHHmmss',
   fileExtension: 'js',
-  fileNameFormat: 'Tz.D',
-  matchNumberOn: 'G',
-  numberPaddedLength: 10,
+  fileNameFormat: 'N.D',
+  matchNumberOn: 'N',
+  numberPaddedLength: 4,
   separator: '-'
 };
 
