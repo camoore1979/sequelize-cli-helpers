@@ -4,11 +4,14 @@ const findUp = require('find-up');
 const rcPaths = findUp.sync(['.sequelizerc']);
 const sequelizeSettings = rcPaths && require(rcPaths);
 
+// TODO: add check / validate on options - run before executing any commands
+
 const DEFAULT_SETTINGS = {
   dateFormat: 'YYYYMMDDHHmmss',
   fileExtension: 'js',
-  fileNameFormat: 'Tz.D',
-  numberPaddedLength: 4,
+  fileNameFormat: 'Tz.N.G.D',
+  matchNumberOn: 'G',
+  numberPaddedLength: 10,
   separator: '-'
 };
 
@@ -23,9 +26,7 @@ module.exports = (() => {
       'seeders-path': '',
       ...sequelizeSettings
     },
-    settings: {
-      ...DEFAULT_SETTINGS
-    },
+    settings: { ...DEFAULT_SETTINGS },
     set: (value, key1, key2) => {
       if (key1 && key2) {
         this[key1][key2] = value;

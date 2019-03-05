@@ -1,50 +1,70 @@
 'use strict';
 
 const fs = require('fs');
-// const moment = require('moment');
+
+const safelySplitFileName = require('./safelySplitFilename');
+
+const getFilterFunc = ({
+  fileNameFormat, matchNumberOn, matchValue, numberPaddedLength, separator 
+}) => {
+  const formatParts = fileNameFormat.split('.');
+
+  // Default to match on Number format
+  matchNumberOn = matchNumberOn || 'N';
+  const matchIndex = formatParts.indexOf(matchNumberOn);
+  let testFunc;
+
+  console.log('matchValue: ', matchValue);
+  console.log('matchIndex: ', matchIndex);
+  if (matchNumberOn === 'N') {
+    const isNumbers = /^[0-9.]+$/;
+    testFunc = test => test.length === numberPaddedLength && test.match(isNumbers);
+  }
+
+  return file => {
+    const fileNameParts = safelySplitFileName(file, separator);
+    const test = fileNameParts.length > matchIndex && fileNameParts[matchIndex];
+
+    return (test && (testFunc && testFunc(test))) || test === matchValue;
+  };
+};
 
 const getCurrentNumber = options => {
   const {
     // dateFormat,
     fileNameFormat,
+    matchNumberOn,
+    matchValue,
     numberPaddedLength,
     path,
     separator
   } = options;
 
-  const isNumbers = /^[0-9.]+$/;
-  let filterFunc;
-
-  // first see what format is first
   const fileNameParts = fileNameFormat.split('.');
-  // const firstFileNamePart = fileNameParts.slice().shift();
+  const numberIndex = fileNameParts.indexOf('N');
 
   // which position is number in??
-  const numberPositionInFormat = fileNameParts.indexOf('N') + 1;
-  // const datePositionInFormat = fileNameParts.indexOf('Tz') + 1;
 
-  // test for number
-  if (numberPositionInFormat === 1) {
-    filterFunc = file => {
-      const test = file.split(separator).shift();
-      return test.length === numberPaddedLength && test.match(isNumbers);
-    };
-  }
+  // test.length === numberPaddedLength && test.match(isNumbers)
+  // Defaults to match on any file with a number in the name format
+  const filterFunc = getFilterFunc({
+    fileNameFormat,
+    matchNumberOn,
+    matchValue,
+    numberPaddedLength,
+    separator
+  });
 
-  // test for date
-  // if (datePositionInFormat === 1) {
-  //   filterFunc = file => {
-  //     const test = file.split(separator).shift();
-  //     const dateStringLength = moment().format(dateFormat).length;
-  //     return test.length === dateStringLength && moment.isDate(new Date(test));
-  //   };
-  // }
   const files = fs.readdirSync(path);
   const lastFile = filterFunc && files.filter(filterFunc).pop();
   // eslint-disable-next-line
-  // console.log('FILE: ', lastFile);
+  console.log('FILE: ', lastFile);
+  const lastFileNameParts = lastFile && lastFile.split(separator);
+  console.dir(lastFileNameParts);
+  const lastFileNumber =
+    lastFile && lastFileNameParts.length >= numberIndex && lastFileNameParts[numberIndex];
 
-  return Number(lastFile ? lastFile.split(separator).shift() : 0);
+  return Number(lastFile ? lastFileNumber : 0);
 };
 
 module.exports = getCurrentNumber;

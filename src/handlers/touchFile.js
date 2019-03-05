@@ -3,37 +3,18 @@
 const path = require('path');
 
 const createFileName = require('../generators/createFileName');
-const getCurrentNumber = require('../lib/getCurrentNumber');
 const logger = require('../lib/logger');
-const { input, yesNo } = require('../prompts/');
+const { yesNo } = require('../prompts/');
+
+const getFileNameParts = require('../lib/getFileNameParts');
 const writeFile = require('../lib/writeFile');
 
-const getFileNameParts = async options => {
-  const {
-    sequelize: { 'migrations-path': migrationsPath },
-    settings
-  } = options;
-  const { fileNameFormat } = settings;
-
-  const formatParts = fileNameFormat.split('.');
-  let currentNumber;
-  let description;
-
-  for (const part of formatParts) {
-    switch (part) {
-    case 'D':
-      description = await input('enter a file description');
-      break;
-    case 'N':
-      currentNumber = getCurrentNumber({ ...settings, path: migrationsPath });
-      // TODO: validate input types... e.g string / numbers
-      currentNumber = currentNumber ? Number(currentNumber) + 1 : await input('enter the number to use');
-      break;
-    }
-  }
-
-  return { currentNumber, description};
-};
+// const acceptedFormatOptions = {
+//   D: 'description',
+//   G: 'git info',
+//   N: 'padded string of numbers',
+//   Tz: 'date with timestamp'
+// };
 
 /**
  * @function touchFile
@@ -46,11 +27,10 @@ module.exports = async options => {
     settings
   } = options;
 
-  const { description, currentNumber } = await getFileNameParts(options);
+  const fileNameParts = await getFileNameParts(options);
   const fileName = createFileName({
     ...settings,
-    description,
-    number: currentNumber
+    fileNameParts
   });
   const createFile = await yesNo(`Create file with name "${fileName}"?`);
   const dir = path.join(migrationsPath, fileName);
