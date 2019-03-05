@@ -2,56 +2,29 @@
 
 const test = require('tape');
 const moment = require('moment');
-const proxyquire = require('proxyquire');
-const before = test;
 
 const config = require('../../config');
-let createFileName;
+const createFileName = require('../createFileName');
 
-before('createFileName()', t => {
-  createFileName = proxyquire('../createFileName', { '../lib/getGitStuff': function () {
-    return '#1-my-git-branch';
-  } });
-  t.end();
-});
+const { settings } = config;
+const { dateFormat } = settings;
 
-test('creates a filename defaulting to name of format YYYYMMDDHHMMSS-description.js', t => {
+test('will create a filename of specified fileNameFormat', t => {
+  const formattedDate = moment().format(dateFormat);
   const options = {
-    ...config.settings,
-    description: 'thisIsATest'
+    ...settings,
+    fileNameFormat: 'Tz.N.G.D',
+    fileNameParts: {
+      D: 'thisIsATest',
+      G: 'my_git_branch',
+      N: '0001',
+      Tz: formattedDate,
+    }
   };
+  const expectedString = `${formattedDate}-0001-my_git_branch-thisIsATest.js`;
   const fileName = createFileName(options);
-  const fileNameParts = fileName.split('-');
-  const datePart = fileNameParts[0];
-  let descriptionPart = fileNameParts[1];
-  descriptionPart = descriptionPart.slice(0, descriptionPart.lastIndexOf('.'));
-  t.equal(datePart.length, 14, 'is of length of expected format, YYYYMMDDHHMMSS');
-  t.equal(moment().isSame(datePart.slice(0, 8), 'day'), true, 'date is today');
-  t.equal(descriptionPart, options.description, 'includes \'description\'');
-  t.end();
-});
 
-test('format of N.D will generate filename with Padded Number + Description, e.g. \'9999-description.js\'', t => {
-  const options = {
-    ...config.settings,
-    fileNameFormat: 'N.D',
-    number: '11',
-    description: 'myFile01'
-  };
-  const fileName = createFileName(options);
-  t.equal(fileName, '0011-myFile01.js', 'includes \'description\'');
-  t.end();
-});
-
-test('format of N.G.D will generate filename with Padded Number + Git Info + Description, e.g. \'9999-gitBranchInfo-description.js\'', t => {
-  const options = {
-    ...config.settings,
-    fileNameFormat: 'N.G.D',
-    number: '11',
-    description: 'myFile01'
-  };
-  const fileName = createFileName(options);
-  t.equal(fileName, '0011-#1-my-git-branch-myFile01.js', 'includes \'description\'');
+  t.equal(fileName, expectedString, 'file name matches expected');
   t.end();
 });
 

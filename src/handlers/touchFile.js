@@ -18,7 +18,7 @@ const writeFile = require('../lib/writeFile');
 
 /**
  * @function touchFile
- * @descriptionn
+ * @description
  * @param {object} options
  */
 module.exports = async options => {
