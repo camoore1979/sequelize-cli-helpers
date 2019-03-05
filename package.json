@@ -7,6 +7,7 @@
     "sequelize-cli-helpers": "./index.js"
   },
   "scripts": {
+    "debug": "node --nolazy --inspect-brk=9229 index.js touch",
     "lint": "eslint \"src/**/*.js\"",
     "fixlint": "eslint --fix \"src/**/*.js\"",
     "prepush": "npm run lint && npm run test",
@@ -57,7 +58,6 @@
   "husky": {
     "hooks": {
       "pre-push": "npm run prepush",
-      "pre-commit": "npm run lint",
       "post-commit": "prettier-eslint --write"
     }
   }
