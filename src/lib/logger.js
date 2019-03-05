@@ -1,6 +1,6 @@
 'use strict';
 
-const log = console.log; // eslint-disable-line no-console
+const log = console.log; // eslint-disable-line no-console, prefer-destructuring
 const chalk = require('chalk');
 
 module.exports = {
