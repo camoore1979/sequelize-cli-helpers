@@ -15,4 +15,4 @@
 - #2 added a README
 - #3 added a CHANGELOG
 - #4 added a CONTRIBUTING and a SPEC
-
+- #5 added ability to configure based on a `.sequelizeclihelpersrc` file
