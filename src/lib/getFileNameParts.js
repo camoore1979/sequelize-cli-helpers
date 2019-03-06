@@ -58,6 +58,7 @@ module.exports = async options => {
     });
     
     // TODO: validate input types... e.g string / numbers
+    // TODO: only input number to use if matching on number... otherwise return 1
     currentNumber = currentNumber ? Number(currentNumber) + 1 : await input('enter the number to use');
     currentNumber = padNumber(currentNumber, numberPaddedLength);
   }
