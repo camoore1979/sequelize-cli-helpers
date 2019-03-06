@@ -9,6 +9,13 @@ const padNumber = require('../../lib/padNumber');
 const getRandomString = require('../../lib/getRandomString');
 const getSafeString = require('../../lib/getSafeString');
 
+// const acceptedFormatOptions = {
+//   D: 'description',
+//   G: 'git info',
+//   N: 'padded string of numbers',
+//   Tz: 'date with timestamp'
+// };
+
 module.exports = async options => {
   const {
     sequelize: { 'migrations-path': migrationsPath },

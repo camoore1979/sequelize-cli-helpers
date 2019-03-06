@@ -8,7 +8,7 @@ const validNameFormat = format => {
 };
 
 /**
- * @function createFileName
+ * @function generateFileName
  * @description generates a file name
  * @param {*} options
  * @param {string} options.dateFormat
@@ -18,7 +18,7 @@ const validNameFormat = format => {
  * @param {string} options.separator
  * @returns {string} file name
  */
-const createFileName = options => {
+const generateFileName = options => {
   const {
     fileExtension, fileNameFormat, fileNameParts, separator 
   } = options;
@@ -36,4 +36,4 @@ const createFileName = options => {
   return `${fileName}.${fileExtension}`;
 };
 
-module.exports = createFileName;
+module.exports = generateFileName;

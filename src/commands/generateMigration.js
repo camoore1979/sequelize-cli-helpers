@@ -17,11 +17,11 @@ const builder = yargs => {
 
 // TODO: ability to pass in all the options..
 module.exports = {
-  command: 'touch',
-  desc: 'generates a file name and touches the empty file',
+  command: 'migration',
+  desc: 'generates a migration file',
   builder,
   handler: async (/* argv */) => {
-    touchFile(config);
-    
+    const fileName = await touchFile(config);
+    console.log('created file: ', fileName);
   }
 };
