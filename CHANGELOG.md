@@ -15,4 +15,4 @@
 - #2 added a README
 - #3 added a CHANGELOG
 - #4 added a CONTRIBUTING and a SPEC
-
+- #14: added forceConfirmation option to force user to confirm each string of each file name part
