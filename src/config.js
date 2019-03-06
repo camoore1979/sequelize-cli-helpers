@@ -12,9 +12,10 @@ const settings = rcPath && require(rcPath);
 const DEFAULT_SETTINGS = {
   dateFormat: 'YYYYMMDDHHmmss',
   fileExtension: 'js',
-  fileNameFormat: 'Tz.N.G.D',
-  matchNumberOn: 'G',
-  numberPaddedLength: 2,
+  fileNameFormat: 'Tz.N.D',
+  forceConfirmation: false,
+  matchNumberOn: 'N',
+  numberPaddedLength: 4,
   separator: '-'
 };
 

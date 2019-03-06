@@ -1,13 +1,13 @@
 'use strict';
 
-const { input } = require('../prompts/');
+const { input } = require('../../prompts/');
 
-const getCurrentNumber = require('./getCurrentNumber');
-const getDate = require('./getDate');
-const getGitStuff = require('./getGitStuff');
-const padNumber = require('./padNumber');
-const getRandomString = require('./getRandomString');
-const getSafeString = require('./getSafeString');
+const getCurrentNumber = require('../../lib/getCurrentNumber');
+const getDate = require('../../lib/getDate');
+const getGitStuff = require('../../lib/getGitStuff');
+const padNumber = require('../../lib/padNumber');
+const getRandomString = require('../../lib/getRandomString');
+const getSafeString = require('../../lib/getSafeString');
 
 module.exports = async options => {
   const {
@@ -15,7 +15,13 @@ module.exports = async options => {
     settings
   } = options;
   const {
-    date, dateFormat, fileNameFormat, matchNumberOn, numberPaddedLength, separator
+    date,
+    dateFormat,
+    fileNameFormat,
+    forceConfirmation,
+    matchNumberOn,
+    numberPaddedLength,
+    separator
   } = settings;
 
   const formatParts = fileNameFormat.split('.');
@@ -41,6 +47,7 @@ module.exports = async options => {
 
   if (formatParts.includes('Tz')) {
     dateValue = date || getDate(undefined, dateFormat);
+    forceConfirmation && (await input(`use this date string [${dateValue}]?`, { initial: dateValue }));
   }
 
   if (formatParts.includes('N')) {
@@ -56,11 +63,18 @@ module.exports = async options => {
               ? dateValue
               : undefined
     });
-    
+
     // TODO: validate input types... e.g string / numbers
     // TODO: only input number to use if matching on number... otherwise return 1
-    currentNumber = currentNumber ? Number(currentNumber) + 1 : await input('enter the number to use');
-    currentNumber = padNumber(currentNumber, numberPaddedLength);
+    if (!currentNumber) {
+      currentNumber = await input('enter the number to use');
+      currentNumber = padNumber(currentNumber, numberPaddedLength);
+    } else {
+      currentNumber = Number(currentNumber) + 1;
+      currentNumber = padNumber(currentNumber, numberPaddedLength);
+      forceConfirmation &&
+        (await input(`use this next number [${currentNumber}]?`, { initial: currentNumber }));
+    }
   }
 
   return {

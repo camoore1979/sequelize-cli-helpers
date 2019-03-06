@@ -2,7 +2,7 @@ module.exports ={
   dateFormat: 'YYYYMMDDHHmmss',
   fileExtension: 'js',
   fileNameFormat: 'Tz.N.G.D',
-  matchNumberOn: 'Tz',
-  numberPaddedLength: 2,
+  matchNumberOn: 'N',
+  numberPaddedLength: 4,
   separator: '-'
 };
