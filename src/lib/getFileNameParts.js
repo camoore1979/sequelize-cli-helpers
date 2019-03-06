@@ -15,7 +15,7 @@ module.exports = async options => {
     settings
   } = options;
   const {
-    date, dateFormat, fileNameFormat, matchNumberOn, numberPaddedLength 
+    date, dateFormat, fileNameFormat, matchNumberOn, numberPaddedLength, separator
   } = settings;
 
   const formatParts = fileNameFormat.split('.');
@@ -27,12 +27,12 @@ module.exports = async options => {
 
   if (formatParts.includes('D')) {
     description = await input('enter a file description');
-    description = getSafeString(description);
+    description = getSafeString(description, separator);
   }
 
   if (formatParts.includes('G')) {
     gitInfo = getGitStuff();
-    gitInfo = getSafeString(gitInfo);
+    gitInfo = getSafeString(gitInfo, separator);
   }
 
   if (formatParts.includes('R')) {

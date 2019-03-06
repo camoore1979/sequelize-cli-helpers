@@ -30,7 +30,7 @@ const createFileName = options => {
 
   const fileName = fileNameFormat
     .split('.')
-    .map(type => fileNameParts && getSafeString(fileNameParts[type]))
+    .map(type => fileNameParts && getSafeString(fileNameParts[type], separator))
     .reduce((acc, part) => `${acc}${separator}${part}`);
 
   return `${fileName}.${fileExtension}`;
