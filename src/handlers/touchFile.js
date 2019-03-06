@@ -6,7 +6,7 @@ const createFileName = require('../generators/createFileName');
 const logger = require('../lib/logger');
 const { yesNo } = require('../prompts/');
 
-const getFileNameParts = require('../lib/getFileNameParts');
+const getFileNameParts = require('./helpers/getFileNameParts');
 const writeFile = require('../lib/writeFile');
 
 // const acceptedFormatOptions = {
