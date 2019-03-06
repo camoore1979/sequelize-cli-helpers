@@ -1,8 +1,11 @@
 'use strict';
 
 const findUp = require('find-up');
-const rcPaths = findUp.sync(['.sequelizerc']);
-const sequelizeSettings = rcPaths && require(rcPaths);
+
+const sequelizeRcPath = findUp.sync('.sequelizerc');
+const sequelizeSettings = sequelizeRcPath && require(sequelizeRcPath);
+const rcPath = findUp.sync('.sequelizeclihelpersrc');
+const settings = rcPath && require(rcPath);
 
 // TODO: add check / validate on options - run before executing any commands
 
@@ -27,7 +30,10 @@ module.exports = (() => {
       'seeders-path': '',
       ...sequelizeSettings
     },
-    settings: { ...DEFAULT_SETTINGS },
+    settings: {
+      ...DEFAULT_SETTINGS,
+      ...settings
+    },
     set: (value, key1, key2) => {
       if (key1 && key2) {
         this[key1][key2] = value;

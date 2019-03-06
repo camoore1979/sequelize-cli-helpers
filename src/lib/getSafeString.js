@@ -2,10 +2,9 @@
 
 const filenamify = require('filenamify');
 
-const config = require('../config');
-
-const getSafeString = (string, substitute = '_') => {
-  const { settings: { separator } } = config;
+// TODO: make `separator` allow for array of separators
+// and iterate and replace all of those
+const getSafeString = (string, separator, substitute = '_') => {
   const safeSeparator = substitute;
   const replaceSeparator = new RegExp(separator, 'g');
   string = string.replace(replaceSeparator, safeSeparator);
