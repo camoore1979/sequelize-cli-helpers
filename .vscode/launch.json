@@ -1,0 +1,37 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/index.js",
+      "args": [
+        "touch"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug File",
+      "program": "${file}"
+    },
+    {
+      "name": "Launch via npm",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+          "run-script", "debug"
+      ],
+      "args": [
+        "touch"
+      ],
+      "port": 9229
+  }
+  ]
+}
