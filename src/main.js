@@ -15,6 +15,7 @@ const logger = require('./lib/logger');
 
 yargs
   .commandDir('commands')
+  .scriptName('')
   .demandCommand()
   .help()
   .fail(function (msg, err) {
