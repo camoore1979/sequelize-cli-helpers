@@ -12,4 +12,7 @@
   - created lib funcs, e.g. getDate.js, padNumber.js, etc.
   - created command / handlers for `touch`, able to create 
     a file name of various formats, and create the empty file
+- #2 added a README
+- #3 added a CHANGELOG
+- #4 added a CONTRIBUTING and a SPEC
 
