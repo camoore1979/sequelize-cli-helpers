@@ -1,5 +1,8 @@
 ## sequelize-cli-helpers
 
+### Improve the following ...
+for a good example, see https://github.com/prettier/prettier-eslint/blob/master/CONTRIBUTING.md
+
 ### Contributing
 
 `sequelize-cli-helpers` is intended for the whole community of Sequelize users. 
