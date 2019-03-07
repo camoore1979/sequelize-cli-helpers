@@ -4,7 +4,7 @@ const test = require('tape');
 const moment = require('moment');
 
 const config = require('../../config');
-const createFileName = require('../createFileName');
+const generateFileName = require('../generateFileName');
 
 const { settings } = config;
 const { dateFormat } = settings;
@@ -22,7 +22,7 @@ test('will create a filename of specified fileNameFormat', t => {
     }
   };
   const expectedString = `${formattedDate}-0001-my_git_branch-thisIsATest.js`;
-  const fileName = createFileName(options);
+  const fileName = generateFileName(options);
 
   t.equal(fileName, expectedString, 'file name matches expected');
   t.end();
