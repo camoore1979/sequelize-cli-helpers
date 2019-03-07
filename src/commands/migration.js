@@ -1,6 +1,6 @@
 'use strict';
 
-you are here!
+// you are here!
 // move config to main.js, use .config()
 const config = require('../config');
 const path = require('path');
