@@ -1,5 +1,6 @@
 'use strict';
 
+//TODO: move config to main.js as a .config()
 const config = require('../config');
 const touchFile = require('../handlers/touchFile');
 
