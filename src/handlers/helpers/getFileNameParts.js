@@ -24,8 +24,10 @@ module.exports = async options => {
     fileNameFormat,
     forceConfirmation,
     matchNumberOn,
+    migrationType,
     numberPaddedLength,
-    separator
+    separator,
+    tableName
   } = options;
 
   const formatParts = fileNameFormat.split('.');
@@ -36,7 +38,12 @@ module.exports = async options => {
   let randomString;
 
   if (formatParts.includes('D')) {
-    description = await input('enter a file description');
+    if (migrationType === 'table') {
+      description = !tableName ? await input('enter the new table being created:') : tableName;
+      description = `create-table-${description}`;
+    } else {
+      description = await input('enter a file description');
+    }
     description = getSafeString(description, separator);
   }
 
