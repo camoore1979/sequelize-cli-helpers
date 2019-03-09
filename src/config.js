@@ -23,16 +23,14 @@ const DEFAULT_SETTINGS = {
 module.exports = (() => {
   return {
     context: process.cwd(),
-    sequelize: {
+    ...DEFAULT_SETTINGS,
+    ...settings,
+    paths: {
       config: '',
       'models-path': '',
       'migrations-path': '',
       'seeders-path': '',
       ...sequelizeSettings
-    },
-    settings: {
-      ...DEFAULT_SETTINGS,
-      ...settings
     },
     set: (value, key1, key2) => {
       if (key1 && key2) {

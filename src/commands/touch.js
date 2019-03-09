@@ -1,10 +1,7 @@
 'use strict';
 
-//TODO: move config to main.js as a .config()
-
 const touchFile = require('../handlers/touchFile');
 
-// add ability to pass in various settings... such as path to created file
 const builder = yargs => {
   const { settings: { DATE_FORMAT } } = yargs.argv;
 
@@ -16,7 +13,6 @@ const builder = yargs => {
   } });
 };
 
-// TODO: ability to pass in all the options..
 module.exports = {
   command: 'touch',
   desc: 'generates a file name and touches the empty file',

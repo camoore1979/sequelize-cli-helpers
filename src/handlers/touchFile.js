@@ -12,18 +12,14 @@ const writeFile = require('../lib/writeFile');
 /**
  * @function touchFile
  * @description
- * @param {object} options
+ * @param {object} argv
  */
-module.exports = async options => {
-  const {
-    sequelize: { 'migrations-path': migrationsPath },
-    settings
-  } = options;
+module.exports = async argv => {
+  const { paths: { 'migrations-path': migrationsPath } } = argv;
 
-  // const {  } = settings;
-  const fileNameParts = await getFileNameParts(options);
+  const fileNameParts = await getFileNameParts(argv);
   const fileName = generateFileName({
-    ...settings,
+    ...argv,
     fileNameParts
   });
 

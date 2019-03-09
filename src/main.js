@@ -1,8 +1,8 @@
 'use strict';
 
 const yargs = require('yargs');
-// const logger = require('./lib/logger');
 const config = require('./config');
+
 yargs
   .config(config)
   .commandDir('commands')

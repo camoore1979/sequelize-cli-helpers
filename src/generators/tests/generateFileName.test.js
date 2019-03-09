@@ -6,19 +6,18 @@ const moment = require('moment');
 const config = require('../../config');
 const generateFileName = require('../generateFileName');
 
-const { settings } = config;
-const { dateFormat } = settings;
+const { dateFormat } = config;
 
 test('will create a filename of specified fileNameFormat', t => {
   const formattedDate = moment().format(dateFormat);
   const options = {
-    ...settings,
+    ...config,
     fileNameFormat: 'Tz.N.G.D',
     fileNameParts: {
       D: 'thisIsATest',
       G: 'my_git_branch',
       N: '0001',
-      Tz: formattedDate,
+      Tz: formattedDate
     }
   };
   const expectedString = `${formattedDate}-0001-my_git_branch-thisIsATest.js`;

@@ -18,10 +18,7 @@ const getSafeString = require('../../lib/getSafeString');
 
 module.exports = async options => {
   const {
-    sequelize: { 'migrations-path': migrationsPath },
-    settings
-  } = options;
-  const {
+    paths: { 'migrations-path': migrationsPath },
     date,
     dateFormat,
     fileNameFormat,
@@ -29,7 +26,7 @@ module.exports = async options => {
     matchNumberOn,
     numberPaddedLength,
     separator
-  } = settings;
+  } = options;
 
   const formatParts = fileNameFormat.split('.');
   let currentNumber;
@@ -59,7 +56,7 @@ module.exports = async options => {
 
   if (formatParts.includes('N')) {
     currentNumber = getCurrentNumber({
-      ...settings,
+      ...options,
       path: migrationsPath,
       matchValue:
         matchNumberOn === 'D'

@@ -14,44 +14,35 @@ const generateFileName = require('../generators/generateFileName');
 const generateTableMigration = require('../generators/generateTableMigration');
 const writeFile = require('../lib/writeFile');
 
-// add ability to pass in various settings... such as path to created file
 const builder = yargs => {
-  // const { settings: { DATE_FORMAT } } = config;
 
-  return yargs
-    .usage('migration -N tableName')
-    .option('tableName', {
-      alias: 'N',
-      describe: 'name of table to create',
-      type: 'string'
-    })
-    .demandOption(['tableName'])
-    .help()
-    .version(false);
+  return (
+    yargs
+      .usage('migration -N tableName')
+      .option('tableName', {
+        alias: 'N',
+        describe: 'name of table to create',
+        type: 'string'
+      })
+      // .demandOption(['tableName'])
+      .help()
+      .version(false)
+  );
 };
 
-// TODO: ability to pass in all the options..
 module.exports = {
   command: 'gen:migration',
   desc: 'generates a migration file',
   builder,
   handler: async argv => {
-
-    // TODO: check argv for tableName ...
-
-    console.dir(argv);
-
     const migrationContent = generateTableMigration('material_subgroup');
 
-    const {
-      sequelize: { 'migrations-path': migrationsPath },
-      settings
-    } = argv;
+    const { paths: { 'migrations-path': migrationsPath } } = argv;
 
     // TODO: pass in file name description!
     const fileNameParts = await getFileNameParts(argv);
     const fileName = generateFileName({
-      ...settings,
+      ...argv,
       fileNameParts
     });
 
