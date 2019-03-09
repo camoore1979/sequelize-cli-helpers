@@ -2,7 +2,7 @@
 
 // you are here!
 // move config to main.js, use .config()
-const config = require('../config');
+// const config = require('../config');
 const path = require('path');
 // const touchFile = require('../handlers/touchFile');
 
@@ -32,7 +32,7 @@ const builder = yargs => {
 
 // TODO: ability to pass in all the options..
 module.exports = {
-  command: 'migration',
+  command: 'gen:migration',
   desc: 'generates a migration file',
   builder,
   handler: async argv => {
@@ -46,10 +46,10 @@ module.exports = {
     const {
       sequelize: { 'migrations-path': migrationsPath },
       settings
-    } = config;
+    } = argv;
 
     // TODO: pass in file name description!
-    const fileNameParts = await getFileNameParts(config);
+    const fileNameParts = await getFileNameParts(argv);
     const fileName = generateFileName({
       ...settings,
       fileNameParts
