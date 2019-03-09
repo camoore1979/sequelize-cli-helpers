@@ -2,10 +2,17 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('{{{ tableName }}}', { id: Sequelize.INTEGER });
+    return queryInterface.createTable('{{{ tableName }}}', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+      }, 
+      /** 
+       * additional fields go here... 
+       */
+    });
   },
-
-  down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable('{{{ tableName }}}');
+  down: (queryInterface /* , Sequelize */) => {
+    return queryInterface.dropTable('{{{ tableName }}}');
   }
 };

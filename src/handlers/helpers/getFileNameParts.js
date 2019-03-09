@@ -22,9 +22,9 @@ module.exports = async options => {
     date,
     dateFormat,
     fileNameFormat,
+    fileType,
     forceConfirmation,
     matchNumberOn,
-    migrationType,
     numberPaddedLength,
     separator,
     tableName
@@ -38,7 +38,7 @@ module.exports = async options => {
   let randomString;
 
   if (formatParts.includes('D')) {
-    if (migrationType === 'table') {
+    if (fileType === 'migration:table') {
       description = !tableName ? await input('enter the new table being created:') : tableName;
       description = `create-table-${description}`;
     } else {

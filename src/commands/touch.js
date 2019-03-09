@@ -3,11 +3,11 @@
 const touchFile = require('../handlers/touchFile');
 
 const builder = yargs => {
-  const { settings: { DATE_FORMAT } } = yargs.argv;
+  const { dateFormat } = yargs.argv;
 
   return yargs.options({ fd: {
     alias: 'dateFormat',
-    default: DATE_FORMAT,
+    default: dateFormat,
     describe: 'format of date',
     type: 'string'
   } });

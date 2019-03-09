@@ -34,7 +34,7 @@ module.exports = {
 
     const fileNameParts = await getFileNameParts({
       ...argv,
-      migrationType: 'table'
+      fileType: 'migration:table'
     });
 
     const fileName = generateFileName({
@@ -43,7 +43,7 @@ module.exports = {
     });
 
     const confirm = await yesNo(`Create migration with name "${fileName}"?`);
-    
+
     if (confirm) {
       const dir = path.join(migrationsPath, fileName);
       writeFile(dir, migrationContent);
