@@ -17,11 +17,8 @@ const writeFile = require('../lib/writeFile');
 module.exports = async argv => {
   const { paths: { 'migrations-path': migrationsPath } } = argv;
 
-  const fileNameParts = await getFileNameParts(argv);
-  const fileName = generateFileName({
-    ...argv,
-    fileNameParts
-  });
+  argv = await getFileNameParts(argv);
+  const fileName = generateFileName(argv);
 
   const confirm = await yesNo(`Create file with name "${fileName}"?`);
   if (confirm) {

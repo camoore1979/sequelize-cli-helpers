@@ -39,8 +39,9 @@ module.exports = async options => {
 
   if (formatParts.includes('D')) {
     if (fileType === 'migration:table') {
-      description = !tableName ? await input('enter the new table being created:') : tableName;
-      description = `create-table-${description}`;
+      const newTableName = !tableName ? await input('enter the new table being created:') : tableName;
+      options.tableName = newTableName;
+      description = `create-table-${newTableName}`;
     } else {
       description = await input('enter a file description');
     }
@@ -89,10 +90,13 @@ module.exports = async options => {
   }
 
   return {
-    D: description,
-    G: gitInfo,
-    N: currentNumber,
-    R: randomString,
-    Tz: dateValue
+    ...options,
+    fileNameParts: {
+      D: description,
+      G: gitInfo,
+      N: currentNumber,
+      R: randomString,
+      Tz: dateValue
+    }
   };
 };

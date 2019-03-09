@@ -10,17 +10,20 @@ const generateTableMigration = require('../generators/generateTableMigration');
 const writeFile = require('../lib/writeFile');
 
 const builder = yargs => {
-  return (
-    yargs
-      .usage('migration -N tableName')
-      .option('tableName', {
-        alias: 'N',
-        describe: 'name of table to create',
-        type: 'string'
-      })
-      .help()
-      .version(false)
-  );
+  return yargs
+    .usage('migration -N tableName')
+    .option('tableName', {
+      alias: 'N',
+      describe: 'name of table to create',
+      type: 'string'
+    })
+    .option('attributes', {
+      alias: 'A',
+      describe: 'additional table attributes',
+      type: 'string'
+    })
+    .help()
+    .version(false);
 };
 
 module.exports = {
@@ -28,21 +31,18 @@ module.exports = {
   desc: 'generates a migration file',
   builder,
   handler: async argv => {
-    const migrationContent = generateTableMigration('material_subgroup');
-
     const { paths: { 'migrations-path': migrationsPath } } = argv;
 
-    const fileNameParts = await getFileNameParts({
+    argv = await getFileNameParts({
       ...argv,
       fileType: 'migration:table'
     });
 
-    const fileName = generateFileName({
-      ...argv,
-      fileNameParts
-    });
+    const fileName = generateFileName(argv);
 
     const confirm = await yesNo(`Create migration with name "${fileName}"?`);
+
+    const migrationContent = generateTableMigration(argv.tableName);
 
     if (confirm) {
       const dir = path.join(migrationsPath, fileName);

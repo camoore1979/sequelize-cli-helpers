@@ -12,6 +12,5 @@ module.exports = tableName => {
   const compiled = handlebars.compile(template, { strict: true });
   const output = compiled({ tableName });
 
-  // console.log('output: \n', output);
   return output;
 };
