@@ -42,7 +42,7 @@ module.exports = {
 
     const confirm = await yesNo(`Create migration with name "${fileName}"?`);
 
-    const migrationContent = generateTableMigration(argv.tableName);
+    const migrationContent = generateTableMigration(argv);
 
     if (confirm) {
       const dir = path.join(migrationsPath, fileName);
