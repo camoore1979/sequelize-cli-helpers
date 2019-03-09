@@ -9,11 +9,11 @@ const testA = t => {
   const expectedAttrs = [
     {
       fieldName: 'top',
-      fieldType: 'string'
+      fieldType: 'STRING'
     },
     {
       fieldName: 'date',
-      fieldType: 'date'
+      fieldType: 'DATE'
     }
   ];
 
@@ -28,11 +28,11 @@ const testB = t => {
   const expectedAttrs = [
     {
       fieldName: 'top',
-      fieldType: 'string'
+      fieldType: 'STRING'
     },
     {
       fieldName: 'date',
-      fieldType: 'date'
+      fieldType: 'DATE'
     }
   ];
 

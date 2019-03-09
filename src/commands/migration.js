@@ -11,15 +11,16 @@ const writeFile = require('../lib/writeFile');
 
 const builder = yargs => {
   return yargs
-    .usage('migration -N tableName')
+    .usage('$0 -N users -A fname:string, lname:string',
+      'Creates a Sequelize migration to create a table.')
     .option('tableName', {
       alias: 'N',
-      describe: 'name of table to create',
+      describe: 'name of table to create. required, will prompt if not provided.',
       type: 'string'
     })
     .option('attributes', {
       alias: 'A',
-      describe: 'additional table attributes',
+      describe: 'list of comma-delimited table attrs. optional.',
       type: 'string'
     })
     .help()

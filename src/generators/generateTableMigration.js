@@ -19,7 +19,10 @@ module.exports = argv => {
   console.dir(attrs);
 
   const compiled = handlebars.compile(template, { strict: true });
-  const output = compiled({ tableName });
+  const output = compiled({
+    attributes: attrs,
+    tableName 
+  });
 
   return output;
 };
