@@ -27,7 +27,9 @@ module.exports = (() => {
       'models-path': '',
       'migrations-path': '',
       'seeders-path': '',
-      ...sequelizeSettings
+      tempates: '',
+      ...sequelizeSettings,
+      ...settings.paths,
     },
     set: (value, key1, key2) => {
       if (key1 && key2) {
