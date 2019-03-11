@@ -6,7 +6,7 @@ const config = require('./config');
 yargs
   .config(config)
   .commandDir('commands')
-  .scriptName('sequelize-cli-helpers')
+  .scriptName('')
   .demandCommand(1, 'You need at least one command before moving on.')
   .help()
   .version() // will parse package.json for the version #

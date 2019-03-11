@@ -30,8 +30,8 @@ Creates a Sequelize migration to create a table.`)
 };
 
 module.exports = {
-  command: 'gen:migration',
-  desc: 'generates a migration file',
+  command: 'gen:migration:table',
+  desc: 'generates a Sequelize migration to create a table',
   builder,
   handler: async argv => {
     const { paths: { 'migrations-path': migrationsPath } } = argv;
