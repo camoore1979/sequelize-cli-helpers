@@ -31,7 +31,7 @@ test('setup getAddress', function (t) {
   t.end();
 });
 
-test.only('test test ', async function (t) {
+test('sCliHelpers ', async function (t) {
   //run setup_test_db.sh
   // const sCliHelpers = spawn('node index.js touch');
 
@@ -39,27 +39,18 @@ test.only('test test ', async function (t) {
   //, { stdio: ['ignore', 'pipe', process.stderr] }); // (A)
 
   const myProcess = cmd.create('index.js');
-  const response = await myProcess.execute(['test'],
+  const response = await myProcess.execute(['touch'],
     [
-      'y',
-      ENTER,
-      '555-1234123',
-      ENTER,
-      ENTER,
-      '1',
-      ENTER,
-      'p',
-      ENTER,
-      '2',
-      ENTER,
-      'My Comment',
-      ENTER,
-      ENTER
+      'y', 
+      ENTER, 
+      '',
+      'y', ENTER
     ],
-    { env: { DEBUG: false } });
+    { env: { DEBUG: true } });
 
   console.log(response);
   t.end();
+
   // source.stdout.on('data', data => {
   //   const incoming = data;
   //   incoming && console.log(`stdout: ${incoming}`);

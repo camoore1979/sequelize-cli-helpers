@@ -35,7 +35,7 @@ The `.sequelizeclihelpersrc` can overwrite any part of the configuration.
 Here is an example of what you can do:
 
 ```
-module.exports ={
+module.exports = {
   dateFormat: 'YYYYMMDDHHmmss',   // format of date string to be used in file naming
   fileExtension: 'js',
   fileNameFormat: 'N.D',          // format of file name to be generated, see below

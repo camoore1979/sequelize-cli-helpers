@@ -24,6 +24,7 @@ module.exports = async options => {
     fileNameFormat,
     fileType,
     forceConfirmation,
+    inquirer,
     matchNumberOn,
     numberPaddedLength,
     separator,
@@ -39,11 +40,13 @@ module.exports = async options => {
 
   if (formatParts.includes('D')) {
     if (fileType === 'migration:table') {
-      const newTableName = !tableName ? await input('enter the new table being created:') : tableName;
+      const newTableName = !tableName
+        ? await input(inquirer, 'enter the new table being created:')
+        : tableName;
       options.tableName = newTableName;
       description = `create-table-${newTableName}`;
     } else {
-      description = await input('enter a file description');
+      description = await input(inquirer, 'enter a file description');
     }
     description = getSafeString(description, separator);
   }
@@ -59,7 +62,8 @@ module.exports = async options => {
 
   if (formatParts.includes('Tz')) {
     dateValue = date || getDate(undefined, dateFormat);
-    forceConfirmation && (await input(`use this date string [${dateValue}]?`, { initial: dateValue }));
+    forceConfirmation &&
+      (await input(inquirer, `use this date string [${dateValue}]?`, { initial: dateValue }));
   }
 
   if (formatParts.includes('N')) {
@@ -79,13 +83,13 @@ module.exports = async options => {
     // TODO: validate input types... e.g string / numbers
     // TODO: only input number to use if matching on number... otherwise return 1
     if (!currentNumber) {
-      currentNumber = await input('enter the number to use');
+      currentNumber = await input(inquirer, 'enter the number to use');
       currentNumber = padNumber(currentNumber, numberPaddedLength);
     } else {
       currentNumber = Number(currentNumber) + 1;
       currentNumber = padNumber(currentNumber, numberPaddedLength);
       forceConfirmation &&
-        (await input(`use this next number [${currentNumber}]?`, { initial: currentNumber }));
+        (await input(inquirer, `use this next number [${currentNumber}]?`, { initial: currentNumber }));
     }
   }
 

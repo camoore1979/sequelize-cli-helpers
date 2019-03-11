@@ -1,8 +1,8 @@
 'use strict';
 
-const { prompt } = require('enquirer');
+// const { prompt } = require('enquirer');
 
-const input = async (questionText, options = {}) => {
+const input = async (inquirer, questionText, options = {}) => {
   const { initial } = options;
 
   const question = {
@@ -12,7 +12,11 @@ const input = async (questionText, options = {}) => {
     initial: initial || ''
   };
 
-  const response = await prompt(question);
+  // const response = await prompt(question);
+  const response = await inquirer.prompt(question);
+
+  // console.log('response is: ', response.answer);
+
   return response.answer;
 };
 
