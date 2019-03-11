@@ -27,7 +27,7 @@ module.exports = (() => {
       'models-path': '',
       'migrations-path': '',
       'seeders-path': '',
-      tempates: '',
+      templates: '',
       ...sequelizeSettings,
       ...settings.paths,
     },

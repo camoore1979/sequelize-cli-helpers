@@ -1,32 +1,33 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
-const handlebars = require('handlebars');
+
 const splitAttributesString = require('../lib/splitAttributesString');
+const generateFromTemplate = require('./helpers/generateFromTemplate');
 
-const getTemplate = () => {
-  const { dir: parsedDir } = path.parse(module.filename);
-  const pathToTemplate = path.resolve(parsedDir, '../templates/migrations/create_table.hbs');
-  return fs.readFileSync(pathToTemplate, 'UTF-8');
-};
+/**
+ * @function generateTableMigration
+ * @description generates a Sequelize migration to create a table
+ * @param {object} argv
+ * @returns {string} compiled and rendered template string
+ */
 
-const compileTemplate = (template, context) => {
-  const compiled = handlebars.compile(template, { strict: true });
-  return compiled(context);
+const getMigrationTemplate = (path, migrationName) => {
+  const pathExists = path && fs.existsSync(path);
+  return pathExists ? `${path}/${migrationName}` : migrationName;
 };
 
 module.exports = argv => {
   const {
     attributes,
-    tableName
-    // paths: { templates: templatePath }
+    tableName,
+    paths: { templates: templatePath }
   } = argv;
 
   const attrs = splitAttributesString(attributes);
-  const template = getTemplate();
+  const pathToTemplate = getMigrationTemplate(templatePath, 'migration_create_table.hbs');
 
-  return compileTemplate(template, {
+  return generateFromTemplate(pathToTemplate, {
     attributes: attrs,
     tableName
   });

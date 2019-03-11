@@ -15,14 +15,14 @@ const builder = yargs => {
 gen:migration -N users -A fname:string, lname:string
 
 Creates a Sequelize migration to create a table.`)
-    .option('tableName', {
-      alias: 'N',
-      describe: 'name of table to create. required, will prompt if not provided.',
-      type: 'string'
-    })
     .option('attributes', {
       alias: 'A',
       describe: 'list of comma-delimited table attrs. optional.',
+      type: 'string'
+    })
+    .option('tableName', {
+      alias: 'N',
+      describe: 'name of table to create. required, will prompt if not provided.',
       type: 'string'
     })
     .help()
