@@ -13,7 +13,10 @@ const generateFromTemplate = require('./helpers/generateFromTemplate');
  */
 
 const getMigrationTemplate = (path, migrationName) => {
-  const pathExists = path && fs.existsSync(path);
+  const pathExists = path && fs.existsSync(`${path}/${migrationName}`);
+  console.log('path: ', path);
+  console.log('migrationName: ', migrationName);
+  console.log('pathExists: ', pathExists);
   return pathExists ? `${path}/${migrationName}` : migrationName;
 };
 
