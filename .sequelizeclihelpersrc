@@ -1,0 +1,8 @@
+module.exports ={
+  dateFormat: 'YYYYMMDDHHmmss',
+  fileExtension: 'js',
+  fileNameFormat: 'Tz.D',
+  matchNumberOn: 'N',
+  numberPaddedLength: 4,
+  separator: '-'
+};

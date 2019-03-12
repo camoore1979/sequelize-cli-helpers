@@ -1,22 +1,42 @@
 'use strict';
 
 const findUp = require('find-up');
-const fs = require('fs');
-const configPath = findUp.sync(['.sequelizerc']);
 
-const testPath = findUp.sync(['.testrc']);
+const sequelizeRcPath = findUp.sync('.sequelizerc');
+const sequelizeSettings = sequelizeRcPath && require(sequelizeRcPath);
+const rcPath = findUp.sync('.sequelizeclihelpersrc');
+const settings = rcPath && require(rcPath);
 
-console.log('configPath: ', configPath);
-console.log('testPath: ', testPath);
-
-
-const sequelizeSettings = require(configPath);
-
-// const config = configPath ? JSON.parse(fs.readFileSync(configPath)) : {};
-
-const CONTEXT = process.cwd();
-
-module.exports = {
-  context: CONTEXT,
-  ...sequelizeSettings
+const DEFAULT_SETTINGS = {
+  dateFormat: 'YYYYMMDDHHmmss',
+  fileExtension: 'js',
+  fileNameFormat: 'Tz.N.D',
+  forceConfirmation: false,
+  matchNumberOn: 'N',
+  numberPaddedLength: 4,
+  separator: '-'
 };
+
+module.exports = (() => {
+  return {
+    context: process.cwd(),
+    ...DEFAULT_SETTINGS,
+    ...settings,
+    paths: {
+      config: '',
+      'models-path': '',
+      'migrations-path': '',
+      'seeders-path': '',
+      templates: '',
+      ...sequelizeSettings,
+      ...settings.paths,
+    },
+    set: (value, key1, key2) => {
+      if (key1 && key2) {
+        this[key1][key2] = value;
+      } else {
+        this[key1] = value;
+      }
+    }
+  };
+})();

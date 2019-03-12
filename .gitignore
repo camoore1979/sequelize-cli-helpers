@@ -1,4 +1,8 @@
 
-.vscode/
 node_modules/
 local/
+
+# locations used for file system tests
+test/migrations
+test/models
+test/seeders
