@@ -17,7 +17,7 @@ const fs = require('fs');
 const writeFile = (fileName, data, writeOption) => {
   const writeFlag = (writeOption === 'append') ? 'a' : (writeOption === 'force') ? 'w' : 'wx';
   try {
-    const content = !data && '';
+    const content = !data ? '' : data;
     fs.writeFileSync(fileName, content, { flag: writeFlag });
     return true;
   } catch (err) {

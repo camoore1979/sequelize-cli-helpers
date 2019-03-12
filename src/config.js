@@ -7,8 +7,6 @@ const sequelizeSettings = sequelizeRcPath && require(sequelizeRcPath);
 const rcPath = findUp.sync('.sequelizeclihelpersrc');
 const settings = rcPath && require(rcPath);
 
-// TODO: add check / validate on options - run before executing any commands
-
 const DEFAULT_SETTINGS = {
   dateFormat: 'YYYYMMDDHHmmss',
   fileExtension: 'js',
@@ -19,20 +17,19 @@ const DEFAULT_SETTINGS = {
   separator: '-'
 };
 
-// TODO: add unit tests for config
 module.exports = (() => {
   return {
     context: process.cwd(),
-    sequelize: {
+    ...DEFAULT_SETTINGS,
+    ...settings,
+    paths: {
       config: '',
       'models-path': '',
       'migrations-path': '',
       'seeders-path': '',
-      ...sequelizeSettings
-    },
-    settings: {
-      ...DEFAULT_SETTINGS,
-      ...settings
+      templates: '',
+      ...sequelizeSettings,
+      ...settings.paths,
     },
     set: (value, key1, key2) => {
       if (key1 && key2) {

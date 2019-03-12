@@ -1,0 +1,27 @@
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('{{{ tableName }}}', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+      },
+      {{#if attributes}}
+      {{#each attributes}}
+      {{{this.fieldName}}}: {
+        type: Sequelize.{{{ this.fieldType}}}
+      },
+      {{/each}}
+      {{/if}}
+      {{#unless attributes}}
+      /** 
+       * additional fields go here... 
+       */
+      {{/unless}}
+    });
+  },
+  down: (queryInterface /* , Sequelize */) => {
+    return queryInterface.dropTable('{{{ tableName }}}');
+  }
+};

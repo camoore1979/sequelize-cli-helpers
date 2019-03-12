@@ -8,20 +8,20 @@ const validNameFormat = format => {
 };
 
 /**
- * @function createFileName
+ * @function generateFileName
  * @description generates a file name
- * @param {*} options
- * @param {string} options.dateFormat
- * @param {string} options.description
- * @param {string} options.extension
- * @param {string} options.format
- * @param {string} options.separator
+ * @param {*} argv
+ * @param {string} argv.dateFormat
+ * @param {string} argv.description
+ * @param {string} argv.extension
+ * @param {string} argv.format
+ * @param {string} argv.separator
  * @returns {string} file name
  */
-const createFileName = options => {
+const generateFileName = argv => {
   const {
     fileExtension, fileNameFormat, fileNameParts, separator 
-  } = options;
+  } = argv;
 
   if (!validNameFormat(fileNameFormat)) {
     const msg = 'File name must begin with a date or number series! Please the specified fileNameFormat.';
@@ -36,4 +36,4 @@ const createFileName = options => {
   return `${fileName}.${fileExtension}`;
 };
 
-module.exports = createFileName;
+module.exports = generateFileName;

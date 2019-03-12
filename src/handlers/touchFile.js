@@ -2,38 +2,32 @@
 
 const path = require('path');
 
-const createFileName = require('../generators/createFileName');
 const logger = require('../lib/logger');
+
 const { yesNo } = require('../prompts/');
-
 const getFileNameParts = require('./helpers/getFileNameParts');
+const generateFileName = require('../generators/generateFileName');
 const writeFile = require('../lib/writeFile');
-
-// const acceptedFormatOptions = {
-//   D: 'description',
-//   G: 'git info',
-//   N: 'padded string of numbers',
-//   Tz: 'date with timestamp'
-// };
 
 /**
  * @function touchFile
  * @description
- * @param {object} options
+ * @param {object} argv
  */
-module.exports = async options => {
-  const {
-    sequelize: { 'migrations-path': migrationsPath },
-    settings
-  } = options;
+module.exports = async argv => {
+  const { paths: { 'migrations-path': migrationsPath } } = argv;
 
-  const fileNameParts = await getFileNameParts(options);
-  const fileName = createFileName({
-    ...settings,
-    fileNameParts
-  });
-  const createFile = await yesNo(`Create file with name "${fileName}"?`);
-  const dir = path.join(migrationsPath, fileName);
-  if (createFile && writeFile(dir)) logger.log(`created "${fileName}!`);
-  if (!createFile) logger.log('cancelling... no file created.');
+  argv = await getFileNameParts(argv);
+  const fileName = generateFileName(argv);
+
+  const confirm = await yesNo(`Create file with name "${fileName}"?`);
+  if (confirm) {
+    const dir = path.join(migrationsPath, fileName);
+    writeFile(dir);
+    logger.log(`created "${fileName}!`);
+  } else {
+    logger.log('cancelling... no file created.');
+  }
+
+  return fileName;
 };

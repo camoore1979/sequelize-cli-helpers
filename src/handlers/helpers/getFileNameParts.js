@@ -9,20 +9,26 @@ const padNumber = require('../../lib/padNumber');
 const getRandomString = require('../../lib/getRandomString');
 const getSafeString = require('../../lib/getSafeString');
 
+// const acceptedFormatOptions = {
+//   D: 'description',
+//   G: 'git info',
+//   N: 'padded string of numbers',
+//   Tz: 'date with timestamp'
+// };
+
 module.exports = async options => {
   const {
-    sequelize: { 'migrations-path': migrationsPath },
-    settings
-  } = options;
-  const {
+    paths: { 'migrations-path': migrationsPath },
     date,
     dateFormat,
     fileNameFormat,
+    fileType,
     forceConfirmation,
     matchNumberOn,
     numberPaddedLength,
-    separator
-  } = settings;
+    separator,
+    tableName
+  } = options;
 
   const formatParts = fileNameFormat.split('.');
   let currentNumber;
@@ -32,7 +38,13 @@ module.exports = async options => {
   let randomString;
 
   if (formatParts.includes('D')) {
-    description = await input('enter a file description');
+    if (fileType === 'migration:table') {
+      const newTableName = !tableName ? await input('enter the new table being created:') : tableName;
+      options.tableName = newTableName;
+      description = `create-table-${newTableName}`;
+    } else {
+      description = await input('enter a file description');
+    }
     description = getSafeString(description, separator);
   }
 
@@ -52,7 +64,7 @@ module.exports = async options => {
 
   if (formatParts.includes('N')) {
     currentNumber = getCurrentNumber({
-      ...settings,
+      ...options,
       path: migrationsPath,
       matchValue:
         matchNumberOn === 'D'
@@ -78,10 +90,13 @@ module.exports = async options => {
   }
 
   return {
-    D: description,
-    G: gitInfo,
-    N: currentNumber,
-    R: randomString,
-    Tz: dateValue
+    ...options,
+    fileNameParts: {
+      D: description,
+      G: gitInfo,
+      N: currentNumber,
+      R: randomString,
+      Tz: dateValue
+    }
   };
 };
