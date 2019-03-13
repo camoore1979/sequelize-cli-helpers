@@ -91,7 +91,7 @@ If you want to see where we _think_ we are headed, please see [SPEC.md](SPEC.md)
 | Branch | Status | Coverage |   |
 | ------ | ------ | -------- | - |
 | `develop` | | | Work in progress |
-| `master` | |  | `0.1.0` |
+| `master` | |  | `0.1.1` |
 
 ## Contributing
 
