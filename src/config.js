@@ -29,7 +29,7 @@ module.exports = (() => {
       'seeders-path': '',
       templates: '',
       ...sequelizeSettings,
-      ...settings.paths,
+      ...(settings ? settings.paths : {}),
     },
     set: (value, key1, key2) => {
       if (key1 && key2) {
