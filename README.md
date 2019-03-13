@@ -82,8 +82,7 @@ must handle `tableName`, `attributes`).
 
 ## Version
 
-This is currently a pre-production project. It is not yet published, and available only for 
-contributors as we work towards an initial `0.1` version.
+This is currently a pre-`1.0` project. 
 
 If you want to see where we _think_ we are headed, please see [SPEC.md](SPEC.md).
 
@@ -92,7 +91,7 @@ If you want to see where we _think_ we are headed, please see [SPEC.md](SPEC.md)
 | Branch | Status | Coverage |   |
 | ------ | ------ | -------- | - |
 | `develop` | | | Work in progress |
-| `master` | |  | Not yet released. |
+| `master` | |  | `0.1.1` |
 
 ## Contributing
 

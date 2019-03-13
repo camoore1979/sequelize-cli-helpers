@@ -2,9 +2,11 @@
 
 ## CHANGELOG
 
-### 0.1 
+### 0.1.1
 
-- INCLUDE a DIFF link here upon release
+- #19 fixed bug, cli was breaking if a `.sequelizeclihelpersrc` file was not present in a project repo
+
+### 0.1.0 
 
 - #1 added first command: `touch`
   - chose and added key dependencies, yargs, enquirer,  
