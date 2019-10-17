@@ -29,6 +29,8 @@ Creates a Sequelize migration to create a table.`)
     .version(false);
 };
 
+console.log('blah blah blah');
+
 module.exports = {
   command: 'gen:migration:table',
   desc: 'generates a Sequelize migration to create a table',
